@@ -1,6 +1,9 @@
 {
   "name": "gender-rus",
   "version": "1.0.0",
+  "homepage": "https://github.com/aapodolskiy/gender-rus",
+  "bugs": "https://github.com/aapodolskiy/gender-rus/issues",
+  "keywords": ["gender", "sex", "rus", "determine", "name", "surname", "patronymic", "пол", "определение", "имя", "фамилия", "отчество"],
   "description": "guessing the gender based on Russian name, surname and patronymic",
   "main": "index.ts",
   "repository": {
