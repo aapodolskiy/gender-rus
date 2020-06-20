@@ -1,7 +1,7 @@
 {
   "name": "gender-rus",
   "version": "1.0.0",
-  "description": "определяет пол по русским ФИО",
+  "description": "guessing the gender based on Russian name, surname and patronymic",
   "main": "index.ts",
   "author": "Alexander <a.a.podolskiy@gmail.com>",
   "license": "MIT",
