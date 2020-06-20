@@ -1,0 +1,9 @@
+{
+  "name": "gender-rus",
+  "version": "1.0.0",
+  "description": "определяет пол по русским ФИО",
+  "main": "index.ts",
+  "author": "Alexander <a.a.podolskiy@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
