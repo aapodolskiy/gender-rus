@@ -1,5 +1,11 @@
 "use strict";
 
+const Gender = {
+  male: 'male',
+  female: 'female',
+  undefined: 'undefined',
+}
+
 const popularNames = {
   male: [
     "абрам",
@@ -341,23 +347,23 @@ module.exports = ({
   const patronymic = Patronymic.toLowerCase();
 
   const genders = {
-    name: "undefined",
-    surname: "undefined",
-    patronymic: "undefined"
+    name: Gender.undefined,
+    surname: Gender.undefined,
+    patronymic: Gender.undefined
   };
 
-  for (const g of ["male", "female"]) {
-    if (genders.name === Gender.UNDEFINED && popularNames[g].includes(name)) {
+  for (const g of [Gender.male. Gender.female]) {
+    if (genders.name === Gender.undefined && popularNames[g].includes(name)) {
       genders.name = g;
     }
     if (
-      genders.surname === Gender.UNDEFINED &&
+      genders.surname === Gender.undefined &&
       surnameEndings[g].some(v => v === surname.slice(-v.length))
     ) {
       genders.surname = g;
     }
     if (
-      genders.patronymic === Gender.UNDEFINED &&
+      genders.patronymic === Gender.undefined &&
       patronymicEndings[g].some(v => v === patronymic.slice(-v.length))
     ) {
       genders.patronymic = g;
@@ -367,7 +373,7 @@ module.exports = ({
   const isProbablyMale = Object.values(genders).some(g => g === "male");
   const isProbablyFemale = Object.values(genders).some(g => g === "female");
 
-  if (isProbablyMale && !isProbablyFemale) return "male";
-  if (isProbablyFemale && !isProbablyMale) return "female";
-  return "undefined";
+  if (isProbablyMale && !isProbablyFemale) return Gender.male;
+  if (isProbablyFemale && !isProbablyMale) return Gender.female;
+  return Gender.undefined;
 };
