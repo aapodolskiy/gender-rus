@@ -1,11 +1,7 @@
-export enum Gender {
-  MALE = "male",
-  FEMALE = "female",
-  UNDEFINED = "undefined"
-}
+"use strict";
 
 const popularNames = {
-  [Gender.MALE]: [
+  male: [
     "абрам",
     "аверьян",
     "авраам",
@@ -160,7 +156,7 @@ const popularNames = {
     "ян",
     "ярослав"
   ],
-  [Gender.FEMALE]: [
+  female: [
     "авдотья",
     "аврора",
     "агата",
@@ -326,31 +322,31 @@ const popularNames = {
 };
 
 const surnameEndings = {
-  [Gender.MALE]: ["ов", "ев", "ин", "ын", "ой", "цкий", "ский", "цкой", "ской"],
-  [Gender.FEMALE]: ["ова", "ева", "ина", "ая", "яя", "екая", "цкая"]
+  male: ["ов", "ев", "ин", "ын", "ой", "цкий", "ский", "цкой", "ской"],
+  female: ["ова", "ева", "ина", "ая", "яя", "екая", "цкая"]
 };
 
 const patronymicEndings = {
-  [Gender.MALE]: ["ович", "евич", "ич"],
-  [Gender.FEMALE]: ["овна", "евна", "ична"]
+  male: ["ович", "евич", "ич"],
+  female: ["овна", "евна", "ична"]
 };
 
-const detectGender = (
-  Name: string,
-  Surname: string,
-  Patronymic: string
-): Gender => {
+module.exports = ({
+  name: Name = "",
+  surname: Surname = "",
+  patronymic: Patronymic = ""
+}) => {
   const name = Name.toLowerCase();
   const surname = Surname.toLowerCase();
   const patronymic = Patronymic.toLowerCase();
 
   const genders = {
-    name: Gender.UNDEFINED,
-    surname: Gender.UNDEFINED,
-    patronymic: Gender.UNDEFINED
+    name: "undefined",
+    surname: "undefined",
+    patronymic: "undefined"
   };
 
-  for (const g of [Gender.MALE, Gender.FEMALE] as const) {
+  for (const g of ["male", "female"]) {
     if (genders.name === Gender.UNDEFINED && popularNames[g].includes(name)) {
       genders.name = g;
     }
@@ -368,14 +364,10 @@ const detectGender = (
     }
   }
 
-  const isProbablyMale = Object.values(genders).some(g => g === Gender.MALE);
-  const isProbablyFemale = Object.values(genders).some(
-    g => g === Gender.FEMALE
-  );
+  const isProbablyMale = Object.values(genders).some(g => g === "male");
+  const isProbablyFemale = Object.values(genders).some(g => g === "female");
 
-  if (isProbablyMale && !isProbablyFemale) return Gender.MALE;
-  if (isProbablyFemale && !isProbablyMale) return Gender.FEMALE;
-  return Gender.UNDEFINED;
+  if (isProbablyMale && !isProbablyFemale) return "male";
+  if (isProbablyFemale && !isProbablyMale) return "female";
+  return "undefined";
 };
-
-export default detectGender;
