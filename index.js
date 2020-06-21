@@ -337,8 +337,14 @@ const patronymicEndings = {
   female: ["овна", "евна", "ична"]
 };
 
-module.exports = ({ name: Name = "", surname = "", patronymic = "" }) => {
+module.exports = ({
+  name: Name = "",
+  surname: Surname = "",
+  patronymic: Patronymic = ""
+}) => {
   const name = Name.toLowerCase();
+  const surname = Surname.toLowerCase();
+  const patronymic = Patronymic.toLowerCase();
 
   const genders = {
     name: Gender.undefined,

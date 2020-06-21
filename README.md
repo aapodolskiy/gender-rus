@@ -1,32 +1,78 @@
-# techical information
+# Gender-rus
 
-Module is written on `ts` and uses `es6` syntax.
+Determine the gender based on Russian name, surname or patronymic. <br/>
 
-# import
+## usage
 
-The whole module is just a function `detectGender` and a type `Gender`.
-```ts
-import detectGender, { Gender } from 'gender-rus';
+```js
+import detectGender from 'gender-rus';
+
+detectGender({surname: 'Иванов', name: 'Иван', patronymic: 'Иванович'});
+// => 'male';
+
+detectGender({name: 'МАРИЯ', patronymic: 'ВЛАДИМИРОВНА'});
+// => 'female';
+
+detectGender({name: 'Женя', surname: 'Бойко'});
+// => 'undefined';
 ```
 
-# usage
+The only argument for `determinedGender` is an object with three optional properties: name, surname and patronymic. Case does not matter. <br/>
+Return value can be `'male'`, `'female'` or `'undefined'`.
 
+## under the hood
+
+Algorithm for determining gender is pretty straightforward. <br/>
+First, we determine gender of name, surname and patronymic separately. <br/>
+
+If all parts cannot be determined, result is `'undefined'`:
 ```ts
-const determinedGender: Gender = detectGender('Иванов', 'Иван', 'Иванович');
-// determinedGender = 'male';
+detectGender({name: 'бубу', surname: 'хаха', patronymic: 'ггг'});
+// => 'undefined';
+
+
+detectGender({name: 'Саша', surname: 'Фейнман'});
+//            ^             ^
+//            undefined     undefined
+//
+// => 'undefined';
 ```
 
-Arguments for `determinedGender` are: name, surname and patronymic.<br/>
-Return value can be `'male'`, `'female'` or `'undefined'` (and that enum is exactly the type `Gender`).
+If some are `'female'` and some parts are `'male'`, result is `'undefined'` too:
+```ts
+detectGender({name: 'Гадя', patronymic: 'Петрович', surname: 'Хренова'});
+//            ^             ^                       ^
+//            undefined     male                    female
+//
+// => 'undefined';
 
-# under the hood
+detectGender({name: 'влад', patronymic: 'васильевна'});
+//            ^             ^
+//            male          female
+//
+// => 'undefined';
+```
 
-Algorithm for determining gender is straightforward.<br/>
-First, we determine gender of each part of full name.<br/>
-If all parts cannot be determined, we return `'undefined'`. <br/>
-If some parts are `'female'` and some parts are `'male'`, we return `'undefined'` too. <br/>
-If all parts are `'male'` or `'undefined'` -- we return `'male'`, corresponding for `'female'`.
+If all parts are `'male'` or `'undefined'`, result is `'male'`:
+```ts
+detectGender({surname: 'ЗАБОЛОЦКИЙ'});
+//            ^
+//            male
+//
+// => 'male';
 
----
+detectGender({name: 'Х', patronymic: 'Петрович'});
+//            ^          ^
+//            undefined  male
+//
+// => 'male';
+```
 
-More information will be here later.
+Similarly for `'female'`:
+```ts
+detectGender({name: 'А.', patronymic: 'И.', surname: 'Ульянова'});
+//            ^           ^                 ^
+//            undefined   undefined         female
+//
+// => 'female';
+```
