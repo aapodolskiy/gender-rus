@@ -1,6 +1,6 @@
 # Gender-rus
 
-Determine the gender based on Russian name, surname or patronymic. <br/>
+Determine the gender, based on Russian name, surname, or patronymic. <br/>
 
 ## usage
 
@@ -17,13 +17,13 @@ detectGender({name: 'Женя', surname: 'Бойко'});
 // => 'undefined';
 ```
 
-The only argument for `determinedGender` is an object with three optional properties: name, surname and patronymic. Case does not matter. <br/>
+The only argument for `determinedGender` is an object with three optional properties: name, surname, and patronymic. Letter case does not matter. <br/>
 Return value can be `'male'`, `'female'` or `'undefined'`.
 
 ## under the hood
 
-Algorithm for determining gender is pretty straightforward. <br/>
-First, we determine gender of name, surname and patronymic separately. <br/>
+The algorithm for determining gender is pretty straightforward. <br/>
+First, we determine the gender of name, surname, and patronymic separately. <br/>
 
 If all parts cannot be determined, result is `'undefined'`:
 ```ts
